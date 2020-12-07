@@ -8,8 +8,8 @@ public class PostgresConnection {
 
     public Connection connect() throws SQLException {
         String url = "jdbc:postgresql://devweb2020.cis.strath.ac.uk:5432/cs253";
-        String user = "qwb19204";
-        String password = "Sunshine-3014";
+        String user = "CHANGE ME";
+        String password = "CHANGE ME";
         return DriverManager.getConnection(url, user, password);
     }
 }
