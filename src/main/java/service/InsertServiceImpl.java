@@ -65,15 +65,34 @@ public class InsertServiceImpl implements InsertService {
         Scanner scanner = new Scanner(System.in);
         Customer customer = new Customer();
         System.out.print("Enter customer id: ");
-        customer.setCustomerId(scanner.next());
+        String customerId = scanner.next();
+        if (customerId.length() < 30 && customerId.length() > 0) {
+            customer.setCustomerId(customerId);
+        } else {
+            System.out.print("Customer id length must be between 0 - 30 characters");
+        }
         System.out.print("Enter first name: ");
-        customer.setFirstName(scanner.next());
+        String firstName = scanner.next();
+        if (firstName.length() < 30 && firstName.length() > 0) {
+            customer.setFirstName(firstName);
+        } else {
+            System.out.print("First name length must be between 0 - 40 characters");
+        }
         System.out.print("Enter last name: ");
-        customer.setLastName(scanner.next());
+        String lastName = scanner.next();
+        if (lastName.length() < 40 && lastName.length() > 0)  {
+            customer.setLastName(lastName);
+        } else {
+            System.out.print("Last name length must be between 0 - 40 characters");
+        }
         System.out.print("Enter contact number: ");
-        customer.setContactNumber(scanner.next());
+        String contactNumber = scanner.next();
+        if (contactNumber.length() < 20 && contactNumber.length() > 0) {
+            customer.setContactNumber(contactNumber);
+        } else {
+            System.out.println("Contact number must be between 0 - 20 characters");
+        }
         return customer;
     }
-
 
 }

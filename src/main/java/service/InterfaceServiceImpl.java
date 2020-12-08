@@ -1,21 +1,32 @@
+package service;
+
 import java.util.Scanner;
+import config.PostgresConnection;
+import model.Customer;
 
-public class Interface {
+public class InterfaceServiceImpl implements InterfaceService {
 
-    int userOption;
+    private final InsertService insertService;
+    private int userOption;
 
-    public void menu(){
+    public InterfaceServiceImpl() {
+        PostgresConnection postgresConnection = new PostgresConnection();
+        this.insertService = new InsertServiceImpl(postgresConnection);
+    }
+
+    @Override
+    public void menu() {
         System.out.println("Welcome to our database");
-
         System.out.println("Please choose an option from below: ");
         System.out.println("1. Insert data into table");
         System.out.println("2. Run query");
         System.out.println("3. Quit");
 
-        while (checkValidNumber() !=3 ) {
+        while (checkValidNumber() != 3) {
             if (userOption == 1) {
                 System.out.println("executeUpdate");
-                //executeUpdate();
+                Customer customer = insertService.createCustomer();
+                insertService.insertCustomer(customer);
                 backToMenu();
             } else if (userOption == 2) {
                 System.out.println("executeQuery");
@@ -28,6 +39,7 @@ public class Interface {
         System.exit(0);
     }
 
+    @Override
     public void backToMenu() {
         System.out.println("Press any key to return to menu");
         Scanner userInput = new Scanner(System.in);
@@ -37,7 +49,8 @@ public class Interface {
         }
     }
 
-    public int checkValidNumber(){
+    @Override
+    public int checkValidNumber() {
         Scanner input = new Scanner(System.in);
         do {
             System.out.println("Please enter a number between 1 and 3: ");
