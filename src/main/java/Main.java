@@ -6,9 +6,8 @@ import service.InsertServiceImpl;
 public class Main {
 
     public static void main(String[] args) {
-
         // Testing customer insert and retrieve
-        Customer customer = Customer.builder()
+        Customer customerTest1 = Customer.builder()
             .customerId("07")
             .firstName("John")
             .lastName("Smith")
@@ -17,7 +16,9 @@ public class Main {
 
         PostgresConnection postgresConnection = new PostgresConnection();
         InsertService insertService = new InsertServiceImpl(postgresConnection);
-        insertService.insertCustomer(customer);
+        Customer customerTest2 = insertService.createCustomer();
+        insertService.insertCustomer(customerTest1);
+        insertService.insertCustomer(customerTest2);
 
     }
 }

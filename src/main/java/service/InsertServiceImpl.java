@@ -3,6 +3,7 @@ package service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 import config.PostgresConnection;
 import model.Customer;
 
@@ -14,13 +15,8 @@ public class InsertServiceImpl implements InsertService {
         this.connection = connection;
     }
 
+    @Override
     public void insertCustomer(Customer customer) {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("INSERT INTO customer (customerId, firstName, lastName, contactNumber) VALUES (")
-//            .append(customer.getCustomerId()).append(", ").append(customer.getFirstName())
-//            .append(", ").append(customer.getLastName()).append(", ")
-//            .append(customer.getContactNumber()).append(")");
-
         String sql = "INSERT INTO customer (customerId, firstName, lastName, contactNumber) VALUES ('"
                 + customer.getCustomerId() + "', '" + customer.getFirstName() + "', '" + customer
                 .getLastName() + "', '" + customer.getContactNumber() + "')";
@@ -41,7 +37,8 @@ public class InsertServiceImpl implements InsertService {
         }
     }
 
-    private void retrieveCustomer(String customerId) {
+    @Override
+    public void retrieveCustomer(String customerId) {
         String sql = "SELECT * FROM Customer where customerId = '" + customerId + "'";
         try {
             PreparedStatement preparedStatement = connection.connect().prepareStatement(sql);
@@ -61,6 +58,21 @@ public class InsertServiceImpl implements InsertService {
         } catch (SQLException e) {
             System.err.print("Select statement has failed for primary key " + customerId);
         }
+    }
+
+    @Override
+    public Customer createCustomer() {
+        Scanner scanner = new Scanner(System.in);
+        Customer customer = new Customer();
+        System.out.print("Enter customer id: ");
+        customer.setCustomerId(scanner.next());
+        System.out.print("Enter first name: ");
+        customer.setFirstName(scanner.next());
+        System.out.print("Enter last name: ");
+        customer.setLastName(scanner.next());
+        System.out.print("Enter contact number: ");
+        customer.setContactNumber(scanner.next());
+        return customer;
     }
 
 
